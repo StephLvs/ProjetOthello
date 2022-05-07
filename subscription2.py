@@ -1,67 +1,76 @@
-import socket
-import threading
 import json
+import socket
+from secrets import choice
+from othello_game import *
 
-#fichier json avec data du joueur
-with open('player2.json') as file:
-    data2=file.read()
 
-#Addresses
-address=('localhost',3000)
-player2_Address=('0.0.0.0',json.loads(data2)['port'])
+#fichier json avec data des joueurs
+with open('player2.json', 'r') as file: 
+    data=file.read()
+
+
+#Adresses
+hostAddress=('localhost',3000)
+playerAddress=('0.0.0.0',json.loads(data)['port'])
 
 ######################  la requête d'inscription  #####################################
 
 #requête faite par le client au serveur:
 def client():
+
     with socket.socket() as s:
-        s.connect(address) #se connecte au server du prof
-        s.send(data2.encode('UTF8')) #send fichier json
+        s.connect(hostAddress) #se connecte au server du prof
+        s.send(data.encode('UTF8')) #send fichier json
         response=json.loads(s.recv(2048).decode()) #json.loads : dico
     #réponse du serveur si tous est ok:
     if response=={"response": "ok"}:
-        print(response)
+        print('Let\'s play!')
         return True
     else:
-        print(response)
-        return False
+        raise ValueError
 
-    
-   
 ########  une requête ping du serveur au port mentionné dans la requête d'inscription  ########
 #################################  requête de coup  ###########################################
 
 #La requête faite par le serveur au client:
 def server():
-    response_player2={"response": "pong"}
-
-    #variables
-    list_of_errors=[]
-    players=[]
-    state_of_the_game={'players': players,'current': 0,'board': [[28, 35], [27, 36]]}
-    the_move_played=int
-
-    #dicos coup
-    dico_state={"request": "play","lives": 3,"errors": list_of_errors,"state": state_of_the_game}
-    response_coup_W={"response": "move","move": the_move_played,"message": "ima beat yo ass"}
-    response_coup_L={"response": "giveup",}
-   
-
+    pong = {"response": "pong"}
+    ping = {"request": "ping"}
+    
     with socket.socket() as s:
-        s.bind(player2_Address)#Il s’agit du port sur lequel les clients vont pouvoir se connecter
+        s.bind(playerAddress) #Il s’agit du port sur lequel les clients vont pouvoir se connecter
         s.listen()
-        #une requête ping du serveur au port mentionné dans la requête d'inscription
+
+        #variables
+        the_move_played = int
+
+        #dicos coup
+        response_coup_W = {"response": "move","move": the_move_played,"message": "goodluck!"}
+        giveup_response = {"response": "giveup",}
+
         while True:
-            client, address=s.accept() #Attente d’un client
-            request=json.loads(client.recv(2048).decode()) #reçoit la requete
-            print(request)
+            client, hostAddress=s.accept() #Attente d’un client
+            host_request=json.loads(client.recv(2048).decode()) #reçoit la requete
+            print(host_request)
+
             #La réponse que le client doit renvoyer (pong)
-            if request=={"request": "ping"}:
-                client.send(json.dumps(response_player2).encode())
-                print(response_player2)
-            if dico_state['request']=='play':
-                print('test')
+            if host_request==ping:
+                client.send(json.dumps(pong).encode())
+                print(pong)
             
+            elif host_request['request']=='play':
+                print(possibleMoves(host_request['state']))
+
+                if len(possibleMoves(host_request['state'])) != 0:
+                    response_coup_W['move'] = choice(possibleMoves(host_request['state']))
+                    client.send(json.dumps(response_coup_W).encode())
+                    print(str(response_coup_W['move']))
+
+                elif len(possibleMoves(host_request['state'])) == 0:
+                    response_coup_W['move'] = None
+                    client.send(json.dumps(giveup_response).encode())
+                    print("giveup_response")
+
 
 if client()==True:
     server()
