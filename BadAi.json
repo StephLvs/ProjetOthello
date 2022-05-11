@@ -1,0 +1,6 @@
+{
+    "request": "subcribe",
+    "port": 9999,
+    "name": "yo",
+    "matricules": ["195111"]
+}
