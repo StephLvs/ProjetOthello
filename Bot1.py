@@ -93,5 +93,4 @@ def server():
         client.close()
 
 if __name__ == "__main__":
-    if client(data)==True:
-        server()
+    if client(data)==True: server()
