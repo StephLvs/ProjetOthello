@@ -1,0 +1,6 @@
+{
+    "request": "subscribe",
+    "port": 4050,
+    "name": "Random-Bot",
+    "matricules": ["02022"]
+ }

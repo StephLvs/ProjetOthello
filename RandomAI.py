@@ -5,7 +5,7 @@ from othello_game import *
 
 
 #fichier json avec data des joueurs
-with open('player2.json', 'r') as file: 
+with open('random.json', 'r') as file: 
     data=file.read()
 
 
