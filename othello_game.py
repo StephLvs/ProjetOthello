@@ -1,5 +1,7 @@
+from unittest import removeResult
+from .. import game
+
 import copy
-import game
 
 directions = [
     ( 0,  1),
@@ -139,3 +141,12 @@ def Othello(players):
         return newState
 
     return state, next
+
+Game = Othello
+
+if __name__ == '__main__':
+    state, next = Game(['LUR', 'HSL'])
+
+    move = 26
+
+    print(next(state, move))
