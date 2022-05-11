@@ -1,5 +1,5 @@
 from unittest import removeResult
-from .. import game
+import game
 
 import copy
 
