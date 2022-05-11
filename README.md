@@ -9,9 +9,9 @@ _A minute to learn… A lifetime to master!_
 
 ## Informations sur le jeu Othello
 
-But : Créer une IA étant capable de jouer de manière intelligente au jeu Othello.
-Nom de l'IA : MaterialGworlz111
-Port par défaut : 2000
+- __But du projet :__ Créer une IA étant capable de jouer de manière intelligente au jeu Othello.
+- __Nom de l'IA :__ MaterialGworlz111
+- __Port par défaut :__ 2222
 
 ## Guide d'installation
 
