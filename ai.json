@@ -1,6 +1,6 @@
 {
     "request": "subscribe",
-    "port": 2000,
+    "port": 2222,
     "name": "MaterialGworlz111",
-    "matricules": ["195247, 195379"]
- }
+    "matricules": ["195247","195379"]
+}
