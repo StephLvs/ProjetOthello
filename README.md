@@ -57,11 +57,22 @@ Le jeu se lance dès que deux joueurs sont connectés au serveur.
     python Bot1.py
     ```
 - Inscrire le Bot Random auprès du serveur
-    - Ouvrir un terminal dans le dossier _ProjetOthello_ et taper :
+    - Ouvrir un 3e terminal dans le dossier _ProjetOthello_ et taper :
     ```shell
     python RandomAI.py
     ```
     Le jeu devrait se lancer en Bot1 Vs. Random-Bot.
+- Pour changer le port
+    - Ouvrir le fichier ai.json
+    ```shell
+    {
+    "request": "subscribe",
+    "port": 2222,
+    "name": "MaterialGworlz111",
+    "matricules": ["195247","195379"]
+    }
+    ```
+    - Modifier le port
 
 ## Stratégie de l'IA
 
