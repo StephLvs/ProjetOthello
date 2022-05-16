@@ -62,8 +62,9 @@ Le jeu se lance dès que deux joueurs sont connectés au serveur.
     python RandomAI.py
     ```
     Le jeu devrait se lancer en Bot1 Vs. Random-Bot.
-- Pour changer le port
-    - Ouvrir le fichier ai.json
+    
+#### Pour changer le port
+- Ouvrir le fichier ai.json
     ```shell
     {
     "request": "subscribe",
@@ -72,7 +73,7 @@ Le jeu se lance dès que deux joueurs sont connectés au serveur.
     "matricules": ["195247","195379"]
     }
     ```
-    - Modifier le port
+- Modifier le port
 
 ## Stratégie de l'IA
 
